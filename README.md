@@ -1,5 +1,5 @@
 # 3D Rack Builder
-This is the **main** branch of the project.
+
 
 This repository contains a simple Three.js based demo that lets you design a server rack layout in the browser.
 
@@ -19,7 +19,3 @@ If you want to run it locally, serve the files using an HTTP server such as:
 python3 -m http.server
 ```
 
-Then open `http://localhost:8000/index.html`.
-
-This demo is just a static HTML page that loads Three.js from a CDN. It does not
-use Node.js packages, so there is no `package.json` in the repository.
