@@ -1,5 +1,6 @@
 # 3D Rack Builder
 
+
 This repository contains a simple Three.js based demo that lets you design a server rack layout in the browser.
 
 Open `index.html` in a modern browser. Use the form in the top left corner to choose an equipment type, label, starting rack unit and height in U. Click **Add Equipment** to place the item in the virtual rack. 
@@ -18,4 +19,3 @@ If you want to run it locally, serve the files using an HTTP server such as:
 python3 -m http.server
 ```
 
-Then open `http://localhost:8000/index.html`.
