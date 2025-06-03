@@ -3,6 +3,13 @@
     "version": "0.1.0",
     "description": "3D Rack Builder demo",
     "scripts": {
-        "test": "echo \"No tests specified\""
+        "test": "echo \"No tests specified\"",
+        "browser-test": "node browser-test.js"
+    },
+    "dependencies": {
+        "puppeteer": "^24.10.0"
+    },
+    "engines": {
+        "node": ">=18"
     }
 }
