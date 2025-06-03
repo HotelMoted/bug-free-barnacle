@@ -1,0 +1,8 @@
+{
+    "name": "bug-free-barnacle",
+    "version": "0.1.0",
+    "description": "3D Rack Builder demo",
+    "scripts": {
+        "test": "echo \"No tests specified\""
+    }
+}
