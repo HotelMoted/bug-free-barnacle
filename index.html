@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Rack Builder</title>
-    <link rel="icon" href="data:,">
     <style>
         body { margin:0; overflow:hidden; font-family: sans-serif; }
         #overlay {
@@ -29,9 +28,11 @@
     <button id="add">Add Equipment</button>
 </div>
 <script type="module">
-import * as THREE from 'https://unpkg.com/three@0.164.0/build/three.module.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.164.0/examples/jsm/controls/OrbitControls.js';
-import { CSS2DRenderer, CSS2DObject } from 'https://unpkg.com/three@0.164.0/examples/jsm/renderers/CSS2DRenderer.js';
+
+import * as THREE from 'https://unpkg.com/three@0.152.2/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'https://unpkg.com/three@0.152.2/examples/jsm/renderers/CSS2DRenderer.js';
+
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xeeeeee);
