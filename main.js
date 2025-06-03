@@ -42,12 +42,14 @@ posts.forEach(p=>scene.add(p));
 
 for(let i=1;i<=rackHeight;i++){
     const div=document.createElement('div');
-    div.textContent = i;
-    div.style.background = 'rgba(0,0,0,0.4)';
-    div.style.color = '#fff';
-    div.style.padding = '2px 4px';
-    const lbl = new CSS2DObject(div);
-    lbl.position.set(-rackWidth / 2 - 0.5, i - 0.5, rackDepth / 2);
+
+    div.textContent=i;
+    div.style.background='rgba(0,0,0,0.4)';
+    div.style.color='#fff';
+    div.style.padding='2px 4px';
+    const lbl=new CSS2DObject(div);
+    lbl.position.set(-rackWidth/2-0.5,i-0.5,rackDepth/2);
+
     scene.add(lbl);
 }
 
@@ -114,34 +116,33 @@ document.querySelectorAll('.palette-item').forEach(el=>{
     });
 });
 
-document.body.addEventListener('dragover', e => {
+
+renderer.domElement.addEventListener('dragover',e=>{
     e.preventDefault();
-    if (!dragging) return;
-    const rect = renderer.domElement.getBoundingClientRect();
-    pointer.x = (e.clientX - rect.left) / rect.width * 2 - 1;
-    pointer.y = -(e.clientY - rect.top) / rect.height * 2 + 1;
-    raycaster.setFromCamera(pointer, camera);
-    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -rackDepth / 2);
-    const pos = new THREE.Vector3();
-    raycaster.ray.intersectPlane(plane, pos);
-    ghostStart = Math.min(rackHeight, Math.max(1, Math.round(pos.y + 0.5)));
-    if (ghostMesh) scene.remove(ghostMesh);
-    const g = new THREE.BoxGeometry(rackWidth - 0.2, dragging.height, rackDepth - 0.2);
-    const m = new THREE.MeshBasicMaterial({color: 0xffffff, opacity: 0.5, transparent: true});
-    ghostMesh = new THREE.Mesh(g, m);
-    ghostMesh.position.set(0, ghostStart - 0.5 + dragging.height / 2, -0.1);
+    if(!dragging) return;
+    const rect=renderer.domElement.getBoundingClientRect();
+    pointer.x=(e.clientX-rect.left)/rect.width*2-1;
+    pointer.y=-(e.clientY-rect.top)/rect.height*2+1;
+    raycaster.setFromCamera(pointer,camera);
+    const plane=new THREE.Plane(new THREE.Vector3(0,0,1),-rackDepth/2);
+    const pos=new THREE.Vector3();
+    raycaster.ray.intersectPlane(plane,pos);
+    ghostStart=Math.min(rackHeight,Math.max(1,Math.round(pos.y+0.5)));
+    if(ghostMesh) scene.remove(ghostMesh);
+    const g=new THREE.BoxGeometry(rackWidth-0.2, dragging.height, rackDepth-0.2);
+    const m=new THREE.MeshBasicMaterial({color:0xffffff,opacity:0.5,transparent:true});
+    ghostMesh=new THREE.Mesh(g,m);
+    ghostMesh.position.set(0,ghostStart-0.5+dragging.height/2,-0.1);
     scene.add(ghostMesh);
 });
 
-document.body.addEventListener('drop', e => {
+renderer.domElement.addEventListener('drop',e=>{
     e.preventDefault();
-    if (!dragging) return;
-    addDevice(dragging.type, dragging.label, ghostStart, dragging.height, true);
-    dragging = null;
-    if (ghostMesh) {
-        scene.remove(ghostMesh);
-        ghostMesh = null;
-    }
+    if(!dragging) return;
+    addDevice(dragging.type,dragging.label,ghostStart,dragging.height,true);
+    dragging=null;
+    if(ghostMesh){scene.remove(ghostMesh);ghostMesh=null;}
+
 });
 
 renderer.domElement.addEventListener('pointerdown',e=>{
