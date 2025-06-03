@@ -5,7 +5,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 console.log('Starting App');
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xeeeeee);
+scene.background = new THREE.Color(0xd8d8d8);
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -59,6 +59,9 @@ const floorMat = new THREE.MeshBasicMaterial({color:0xcccccc});
 const floor = new THREE.Mesh(floorGeom, floorMat);
 floor.rotation.x = -Math.PI/2;
 scene.add(floor);
+const grid = new THREE.GridHelper(50, 50, 0x999999, 0xcccccc);
+grid.position.y = 0.01;
+scene.add(grid);
 
 const devices = new Array(42).fill(null); // track occupancy by unit
 const deviceMeshes = [];
