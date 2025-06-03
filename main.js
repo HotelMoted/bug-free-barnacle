@@ -54,10 +54,32 @@ for(let i=1;i<=rackHeight;i++){
     scene.add(lbl);
 }
 
-const floorGeom = new THREE.PlaneGeometry(50,50);
-const floorMat = new THREE.MeshBasicMaterial({color:0xcccccc});
+function createTileTexture() {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#e8e8e8';
+    ctx.fillRect(0, 0, size, size);
+    ctx.strokeStyle = '#b0b0b0';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(0, 0, size, size);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(25, 25);
+    return tex;
+}
+
+const floorGeom = new THREE.PlaneGeometry(50, 50);
+const floorMat = new THREE.MeshStandardMaterial({
+    map: createTileTexture(),
+    metalness: 0.1,
+    roughness: 0.8
+});
 const floor = new THREE.Mesh(floorGeom, floorMat);
-floor.rotation.x = -Math.PI/2;
+floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 const grid = new THREE.GridHelper(50, 50, 0x999999, 0xcccccc);
 grid.position.y = 0.01;
@@ -108,11 +130,11 @@ function addDevice(type,label,start,height,animate){
 }
 
 
-const light=new THREE.DirectionalLight(0xffffff,1);
-light.position.set(10,20,10);
-scene.add(light);
-const amb=new THREE.AmbientLight(0x404040);
-scene.add(amb);
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+dirLight.position.set(10, 20, 10);
+scene.add(dirLight);
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x888888, 0.6);
+scene.add(hemiLight);
 
 document.querySelectorAll('.palette-item').forEach(el=>{
     el.addEventListener('dragstart',e=>{
