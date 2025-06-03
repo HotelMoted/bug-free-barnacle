@@ -18,13 +18,15 @@ labelRenderer.domElement.style.top = '0px';
 document.body.appendChild(labelRenderer.domElement);
 
 const controls = new OrbitControls(camera, labelRenderer.domElement);
-controls.target.set(0,21,0);
-camera.position.set(2,20,40);
-controls.update();
+controls.maxPolarAngle = Math.PI / 2;
+controls.minPolarAngle = 0;
 
 // Rack dimensions
-const rackWidth=6, rackDepth=8, rackHeight=42;
-const postGeom = new THREE.BoxGeometry(0.2, rackHeight+1, 0.2);
+const rackWidth = 6, rackDepth = 8, rackHeight = 42;
+controls.target.set(0, rackHeight / 2, 0);
+camera.position.set(2, rackHeight / 2, 40);
+controls.update();
+const postGeom = new THREE.BoxGeometry(0.2, rackHeight, 0.2);
 const postMat = new THREE.MeshBasicMaterial({color:0x333333});
 const posts=[
     new THREE.Mesh(postGeom, postMat),
@@ -32,20 +34,22 @@ const posts=[
     new THREE.Mesh(postGeom, postMat),
     new THREE.Mesh(postGeom, postMat)
 ];
-posts[0].position.set(-rackWidth/2,-0.5,rackDepth/2);
-posts[1].position.set(rackWidth/2,-0.5,rackDepth/2);
-posts[2].position.set(-rackWidth/2,-0.5,-rackDepth/2);
-posts[3].position.set(rackWidth/2,-0.5,-rackDepth/2);
+posts[0].position.set(-rackWidth/2,rackHeight/2,rackDepth/2);
+posts[1].position.set(rackWidth/2,rackHeight/2,rackDepth/2);
+posts[2].position.set(-rackWidth/2,rackHeight/2,-rackDepth/2);
+posts[3].position.set(rackWidth/2,rackHeight/2,-rackDepth/2);
 posts.forEach(p=>scene.add(p));
 
 for(let i=1;i<=rackHeight;i++){
     const div=document.createElement('div');
+
     div.textContent=i;
     div.style.background='rgba(0,0,0,0.4)';
     div.style.color='#fff';
     div.style.padding='2px 4px';
     const lbl=new CSS2DObject(div);
     lbl.position.set(-rackWidth/2-0.5,i-0.5,rackDepth/2);
+
     scene.add(lbl);
 }
 
@@ -112,6 +116,7 @@ document.querySelectorAll('.palette-item').forEach(el=>{
     });
 });
 
+
 renderer.domElement.addEventListener('dragover',e=>{
     e.preventDefault();
     if(!dragging) return;
@@ -137,6 +142,7 @@ renderer.domElement.addEventListener('drop',e=>{
     addDevice(dragging.type,dragging.label,ghostStart,dragging.height,true);
     dragging=null;
     if(ghostMesh){scene.remove(ghostMesh);ghostMesh=null;}
+
 });
 
 renderer.domElement.addEventListener('pointerdown',e=>{
